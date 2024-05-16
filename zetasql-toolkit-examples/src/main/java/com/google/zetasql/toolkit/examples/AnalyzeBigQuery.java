@@ -34,42 +34,32 @@ public class AnalyzeBigQuery {
     String query =
         "DECLARE x STRING DEFAULT 'ASD';"
             + "SET x = 'ASD2';"
-            + "INSERT INTO `bigquery-public-data.samples.wikipedia` (title) VALUES ('random title');\n"
-            + "SELECT title, language FROM `bigquery-public-data.samples.wikipedia` WHERE title = 'random title';";
+            + "INSERT INTO `bigdata-platform-data-us-dev.huijun_us_test.test_zsql` (title) VALUES ('random title');\n"
+            + "SELECT title, language FROM `bigdata-platform-data-us-dev.huijun_us_test.test_zsql` WHERE title = 'random title';";
 
     // Step 1: Create a BigQueryCatalog
-    // In this case, we provide the project id where queries are assumed to be running. The
-    // catalog
-    // will connect to the BigQuery API using application-default credentials to access BigQuery
-    // resources.
-    // You can also provide your own BigQuery API client or a custom implementation of
-    // BigQueryResourceProvider.
-    BigQueryCatalog catalog = BigQueryCatalog.usingBigQueryAPI("bigquery-public-data");
+    // In this case, we provide the project id where queries are assumed to be running. 
+    // The catalog will connect to the BigQuery API using application-default credentials to access BigQuery resources.
+    // You can also provide your own BigQuery API client or a custom implementation of BigQueryResourceProvider.
+    BigQueryCatalog catalog = BigQueryCatalog.usingBigQueryAPI("bigdata-platform-data-us-dev");
 
     // Step 2: Add tables to the catalog before analyzing
-    // BigQueryCatalog.addTable will fetch the table metadata and
-    // create the table in the catalog.
-    // Just as we can add tables and views; we can also add UDFs, TVFs and Procedures from
-    // BigQuery.
+    // BigQueryCatalog.addTable will fetch the table metadata and create the table in the catalog.
+    // Just as we can add tables and views; we can also add UDFs, TVFs and Procedures from BigQuery.
     // See also: BigQueryCatalog.addAllTablesInDataset and BigQueryCatalog.addAllTablesInProject
-    catalog.addTable("bigquery-public-data.samples.wikipedia");
+    catalog.addTable("bigdata-platform-data-us-dev.huijun_us_test.test_zsql");
 
     // Step 3: Define the LanguageOptions and AnalyzerOptions to configure the ZetaSQL analyzer
 
     // LanguageOptions are ZetaSQL's way of customizing the SQL dialect the analyzer accepts.
-    // This
-    // toolkit
-    // includes properly configured LanguageOptions for BigQuery.
+    // This toolkit includes properly configured LanguageOptions for BigQuery.
 
     // AnalyzerOptions are ZetaSQL's way of customizing the analyzer itself
-    // Usually, setting the LanguageOptions is the only configuration required; but they can be
-    // customized
-    // for more advanced use cases.
+    // Usually, setting the LanguageOptions is the only configuration required; but they can be customized for more advanced use cases.
     AnalyzerOptions options = new AnalyzerOptions();
     options.setLanguageOptions(BigQueryLanguageOptions.get());
 
-    // Step 4: Use the ZetaSQLToolkitAnalyzer to get an iterator of the ResolvedStatements
-    // that result from running the analysis
+    // Step 4: Use the ZetaSQLToolkitAnalyzer to get an iterator of the ResolvedStatements that result from running the analysis
     ZetaSQLToolkitAnalyzer analyzer = new ZetaSQLToolkitAnalyzer(options);
     Iterator<AnalyzedStatement> statementIterator = analyzer.analyzeStatements(query, catalog);
 

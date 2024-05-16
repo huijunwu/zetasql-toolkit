@@ -53,14 +53,14 @@ public class ExtractColumnLevelLineage {
   private static void lineageForCreateTableAsSelectStatement(
       BigQueryCatalog catalog, ZetaSQLToolkitAnalyzer analyzer) {
     String query =
-        "CREATE TABLE `project.dataset.table` AS\n"
+        "CREATE TABLE `bigdata-platform-data-us-dev.huijun_us_test.test_zsql_create` AS\n"
             + "SELECT\n"
             + "    concatted AS column_alias\n"
             + "FROM\n"
             + "    (\n"
             + "        SELECT \n"
             + "            UPPER(CONCAT(title, comment)) AS concatted\n"
-            + "        FROM `bigquery-public-data`.samples.wikipedia\n"
+            + "        FROM `bigdata-platform-data-us-dev`.huijun_us_test.test_zsql\n"
             + "    )\n"
             + "GROUP BY 1;";
 
@@ -146,10 +146,10 @@ public class ExtractColumnLevelLineage {
   }
 
   public static void main(String[] args) {
-    BigQueryCatalog catalog = BigQueryCatalog.usingBigQueryAPI("bigquery-public-data");
+    BigQueryCatalog catalog = BigQueryCatalog.usingBigQueryAPI("bigdata-platform-data-us-dev");
     catalog.addTables(
         ImmutableList.of(
-            "bigquery-public-data.samples.wikipedia", "bigquery-public-data.samples.shakespeare"));
+            "bigdata-platform-data-us-dev.huijun_us_test.test_zsql", "bigdata-platform-data-us-dev.huijun_us_test.normal_filtered"));
 
     AnalyzerOptions options = new AnalyzerOptions();
     options.setLanguageOptions(BigQueryLanguageOptions.get());
@@ -157,11 +157,11 @@ public class ExtractColumnLevelLineage {
     ZetaSQLToolkitAnalyzer analyzer = new ZetaSQLToolkitAnalyzer(options);
 
     lineageForCreateTableAsSelectStatement(catalog, analyzer);
-    System.out.println("-----------------------------------");
-    lineageForInsertStatement(catalog, analyzer);
-    System.out.println("-----------------------------------");
-    lineageForUpdateStatement(catalog, analyzer);
-    System.out.println("-----------------------------------");
-    lineageForMergeStatement(catalog, analyzer);
+    // System.out.println("-----------------------------------");
+    // lineageForInsertStatement(catalog, analyzer);
+    // System.out.println("-----------------------------------");
+    // lineageForUpdateStatement(catalog, analyzer);
+    // System.out.println("-----------------------------------");
+    // lineageForMergeStatement(catalog, analyzer);
   }
 }

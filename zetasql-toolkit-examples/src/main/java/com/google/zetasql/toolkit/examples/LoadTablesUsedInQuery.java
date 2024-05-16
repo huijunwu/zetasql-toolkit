@@ -31,10 +31,10 @@ public class LoadTablesUsedInQuery {
 
   public static void main(String[] args) {
     String query =
-        "INSERT INTO `bigquery-public-data.samples.wikipedia` (title) VALUES ('random title');\n"
-            + "SELECT * FROM `bigquery-public-data.samples.wikipedia` WHERE title = 'random title';";
+        "INSERT INTO `bigdata-platform-data-us-dev.huijun_us_test.test_zsql` (title) VALUES ('random title');\n"
+            + "SELECT * FROM `bigdata-platform-data-us-dev.huijun_us_test.test_zsql` WHERE title = 'random title';";
 
-    BigQueryCatalog catalog = BigQueryCatalog.usingBigQueryAPI("bigquery-public-data");
+    BigQueryCatalog catalog = BigQueryCatalog.usingBigQueryAPI("bigdata-platform-data-us-dev");
 
     AnalyzerOptions options = new AnalyzerOptions();
     options.setLanguageOptions(BigQueryLanguageOptions.get());
