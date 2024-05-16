@@ -73,7 +73,8 @@
     <maven.compiler.target>8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.deploy.skip>false</maven.deploy.skip>
-    <maven.test.skip>true</maven.test.skip>
+    <!-- <maven.test.skip>true</maven.test.skip> -->
+    <maven.test.skip>false</maven.test.skip>
     <!-- Dependency versions -->
     <zetasql.version>2024.03.1</zetasql.version>
     <google.cloud.libraries.version>26.39.0</google.cloud.libraries.version>

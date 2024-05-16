@@ -33,13 +33,13 @@ public class AnalyzingCreateStatements {
     String query =
         "CREATE TEMP TABLE t AS (SELECT 1 AS column UNION ALL SELECT 2 AS column);\n"
             + "CREATE TEMP VIEW v AS (SELECT 2 AS column);\n"
-            + "CREATE FUNCTION `dataset.f`(x INT64) AS ((x * 2));\n"
-            + "CREATE TABLE FUNCTION `dataset.tvf`(x INT64) AS (SELECT * FROM t WHERE column = x);\n"
-            + "SELECT `dataset.f`(a.column) from `dataset.tvf`(2) AS a INNER JOIN v USING (column);"
-            + "CREATE PROCEDURE `dataset.procedure_name`()\nBEGIN\n\nEND;\n"
-            + "CALL `dataset.procedure_name`();";
+            + "CREATE FUNCTION `huijun_us_test.f`(x INT64) AS ((x * 2));\n"
+            + "CREATE TABLE FUNCTION `huijun_us_test.tvf`(x INT64) AS (SELECT * FROM t WHERE column = x);\n"
+            + "SELECT `huijun_us_test.f`(a.column) from `huijun_us_test.tvf`(2) AS a INNER JOIN v USING (column);"
+            + "CREATE PROCEDURE `huijun_us_test.procedure_name`()\nBEGIN\n\nEND;\n"
+            + "CALL `huijun_us_test.procedure_name`();";
 
-    BigQueryCatalog catalog = BigQueryCatalog.usingBigQueryAPI("bigquery-public-data");
+    BigQueryCatalog catalog = BigQueryCatalog.usingBigQueryAPI("bigdata-platform-data-us-dev");
 
     AnalyzerOptions options = new AnalyzerOptions();
     options.setLanguageOptions(BigQueryLanguageOptions.get());
