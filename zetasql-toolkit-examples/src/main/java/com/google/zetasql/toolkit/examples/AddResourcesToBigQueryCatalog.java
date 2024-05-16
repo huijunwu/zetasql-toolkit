@@ -27,23 +27,23 @@ public class AddResourcesToBigQueryCatalog {
     // Add a table or a set of tables by name
     // Views are considered tables as well, so they can be added this way to the catalog
     catalog.addTable("bigdata-platform-data-us-dev.huijun_us_test.test_zsql");
-    System.out.println(catalog.toString());
+    System.out.println(catalog.getZetaSQLCatalog().toString());
     System.out.println("---------------------------");
 
     catalog.addTables(
         ImmutableList.of(
             "bigdata-platform-data-us-dev.huijun_us_test.test_zsql",
             "bigdata-platform-data-us-dev.huijun_us_test.normal_filtered"));
-    System.out.println(catalog.toString());
+            System.out.println(catalog.getZetaSQLCatalog().toString());
     System.out.println("---------------------------");
 
     // Add all tables in a dataset or project
     // Views are considered tables as well, so they will be added to the catalog too
     catalog.addAllTablesInDataset("bigdata-platform-data-us-dev", "huijun_us_test");
-    System.out.println(catalog.toString());
+    System.out.println(catalog.getZetaSQLCatalog().toString());
     System.out.println("---------------------------");
     catalog.addAllTablesInProject("bigdata-platform-data-us-dev");
-    System.out.println(catalog.toString());
+    System.out.println(catalog.getZetaSQLCatalog().toString());
     System.out.println("---------------------------");
 
     // Add a function or a set of functions by name
